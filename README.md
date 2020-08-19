@@ -1,4 +1,4 @@
-# financials-manager-login project
+# financials-manager project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
