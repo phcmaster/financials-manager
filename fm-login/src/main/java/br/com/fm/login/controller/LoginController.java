@@ -8,11 +8,11 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("￿/auth")
+@RequestMapping("/auth")
 public class LoginController {
 
 
-    @PostMapping("￿/￿login")
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody @Valid LoginRequest request){
 
         return ResponseEntity.ok().body("Endpoint test");
@@ -20,7 +20,7 @@ public class LoginController {
     }
 
 
-    @GetMapping("￿/test￿")
+    @GetMapping("/test")
     public ResponseEntity<String> login(){
 
         return ResponseEntity.ok().body("Endpoint test");
