@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
-@RestControllergit
+@RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("￿/auth")
 public class LoginController {
