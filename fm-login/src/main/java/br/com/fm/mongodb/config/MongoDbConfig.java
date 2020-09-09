@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@EnableMongoRepositories("br.com.fm.mongodb.config.repository")
+@EnableMongoRepositories("br.com.fm.mongodb.repository")
 public class MongoDbConfig extends AbstractMongoClientConfiguration {
 
     @Value("${spring.data.mongodb.uri}")
@@ -23,13 +23,11 @@ public class MongoDbConfig extends AbstractMongoClientConfiguration {
 
     public MongoMappingContext mongoMappingContext()
             throws ClassNotFoundException {
-        // TODO Auto-generated method stub
         return super.mongoMappingContext();
     }
 
     @Override
     protected String getDatabaseName() {
-        // TODO Auto-generated method stub
         return mongoDB;
     }
 
