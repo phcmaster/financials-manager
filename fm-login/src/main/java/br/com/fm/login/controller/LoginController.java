@@ -8,7 +8,6 @@ import br.com.fm.mongodb.entity.UserEntity;
 import br.com.fm.mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,8 +26,8 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@RequestBody @Valid UserRequest UserRequest) {
-        TokenResponse tokenResponse = loginService.authenticationUser(UserRequest);
-        return ResponseEntity.ok().body(tokenResponse);
+        var tokenResponse = loginService.authenticationUser(UserRequest);
+        return ResponseEntity.ok().body(tokenResponse.getBody());
 
     }
 
@@ -50,10 +49,13 @@ public class LoginController {
 
     }
 
-    public static void main(String[] args) {
-        System.out.println(new BCryptPasswordEncoder().encode("12345678"));
 
+
+    @GetMapping("/testToken")
+    public ResponseEntity<String> create() {
+        return ResponseEntity.ok().body("Token ok");
     }
+
 
 
 }
