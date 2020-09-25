@@ -13,7 +13,6 @@ import lombok.Setter;
 public class TokenResponse {
 
     private String token;
-
     private String type;
 
 

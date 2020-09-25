@@ -51,11 +51,5 @@ public class LoginController {
 
 
 
-    @GetMapping("/testToken")
-    public ResponseEntity<String> create() {
-        return ResponseEntity.ok().body("Token ok");
-    }
-
-
 
 }
