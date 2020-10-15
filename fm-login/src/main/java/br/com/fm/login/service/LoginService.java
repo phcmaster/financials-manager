@@ -2,11 +2,12 @@ package br.com.fm.login.service;
 
 
 import br.com.fm.login.dto.TokenResponse;
-import br.com.fm.login.dto.UserRequest;
+import br.com.fm.login.dto.UserLoginRequest;
 import br.com.fm.mongodb.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
+@Slf4j
 public class LoginService {
 
 
@@ -32,28 +34,28 @@ public class LoginService {
     private String jwtSecret;
 
 
-    public ResponseEntity<TokenResponse> authenticationUser(UserRequest userRequest) throws AuthenticationException {
+    public ResponseEntity<Object> authenticationUser(UserLoginRequest userLoginRequest) throws Exception {
 
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = requestToAuth(userRequest);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = requestToAuth(userLoginRequest);
 
         try {
             Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             String token = generateToken(authenticate);
-
+            log.info("Auth user - token generated!");
             return ResponseEntity.ok().body(new TokenResponse(token, "Bearer"));
 
         } catch (AuthenticationException e) {
-            return ResponseEntity.badRequest().build();
+            log.error("Auth user -  could not generate token!");
+            throw new IllegalArgumentException(e.getMessage());
         }
 
 
     }
 
 
-    private UsernamePasswordAuthenticationToken requestToAuth(UserRequest userRequest) {
-        return new UsernamePasswordAuthenticationToken(userRequest.getEmail(), userRequest.getPassword());
+    private UsernamePasswordAuthenticationToken requestToAuth(UserLoginRequest userLoginRequest) {
+        return new UsernamePasswordAuthenticationToken(userLoginRequest.getEmail(), userLoginRequest.getPassword());
     }
-
 
     public String generateToken(Authentication authentication) {
 
@@ -74,6 +76,7 @@ public class LoginService {
             Jwts.parser().setSigningKey(this.jwtSecret).parseClaimsJws(token);
             return true;
         } catch (Exception e) {
+            log.error("Token is not valid!");
             return false;
         }
 

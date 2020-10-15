@@ -1,10 +1,8 @@
 package br.com.fm.login.controller;
 
 
-import br.com.fm.login.dto.TokenResponse;
-import br.com.fm.login.dto.UserRequest;
+import br.com.fm.login.dto.UserLoginRequest;
 import br.com.fm.login.service.LoginService;
-import br.com.fm.mongodb.entity.UserEntity;
 import br.com.fm.mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,31 +23,11 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<TokenResponse> login(@RequestBody @Valid UserRequest UserRequest) {
-        var tokenResponse = loginService.authenticationUser(UserRequest);
+    public ResponseEntity<Object> login(@RequestBody @Valid UserLoginRequest UserLoginRequest) throws Exception {
+        ResponseEntity<Object> tokenResponse = loginService.authenticationUser(UserLoginRequest);
         return ResponseEntity.ok().body(tokenResponse.getBody());
 
     }
-
-
-    @PostMapping("/create")
-    public ResponseEntity<UserEntity> create(@RequestBody @Valid UserRequest request) {
-
-
-        UserEntity userEntity = new UserEntity();
-
-        userEntity.setEmail(request.getEmail());
-        userEntity.setName(request.getName());
-        userEntity.setPassword(request.getPassword());
-
-        userRepository.save(userEntity);
-
-
-        return ResponseEntity.ok().body(userEntity);
-
-    }
-
-
 
 
 }

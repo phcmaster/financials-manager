@@ -1,4 +1,5 @@
-package br.com.fm.login.exception;
+package br.com.fm.login.dto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +10,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GlobalExceptionResponse {
+public class Session {
 
-    private int statusCode;
-    private String message;
+    private String name;
+
+    private String email;
+
+    private String password;
+
 
 }

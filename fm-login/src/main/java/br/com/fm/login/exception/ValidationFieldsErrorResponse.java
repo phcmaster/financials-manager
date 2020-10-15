@@ -5,13 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GlobalExceptionResponse {
+public class ValidationFieldsErrorResponse {
 
-    private int statusCode;
     private String message;
+    private List<String> details;
 
 }
