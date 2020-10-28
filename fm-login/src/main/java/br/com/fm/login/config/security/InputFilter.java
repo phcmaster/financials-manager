@@ -46,9 +46,9 @@ public class InputFilter extends OncePerRequestFilter {
 
     private void verifyClientAutentication(String token) {
 
-        String idUser = loginService.tokenGetUserId(token);
+        String userEmail = loginService.tokenGetUserEmail(token);
 
-        Optional<UserEntity> user = userRepository.findById(idUser);
+        Optional<UserEntity> user = userRepository.findByEmail(userEmail);
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.get().getAuthorities());
 

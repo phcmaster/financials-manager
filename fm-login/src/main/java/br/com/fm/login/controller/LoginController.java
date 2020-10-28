@@ -1,9 +1,8 @@
 package br.com.fm.login.controller;
 
 
-import br.com.fm.login.dto.UserLoginRequest;
+import br.com.fm.login.dto.login.UserLoginRequest;
 import br.com.fm.login.service.LoginService;
-import br.com.fm.mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +16,6 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
-
-    @Autowired
-    private UserRepository userRepository;
 
 
     @PostMapping("/login")

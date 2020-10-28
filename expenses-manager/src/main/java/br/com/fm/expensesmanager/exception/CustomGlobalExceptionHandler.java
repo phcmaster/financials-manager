@@ -1,6 +1,5 @@
-package br.com.fm.login.exception;
+package br.com.fm.expensesmanager.exception;
 
-import lombok.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -16,9 +15,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.ArrayList;
 import java.util.List;
 
-
 @ControllerAdvice
-public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class CustomGlobalExceptionHandler  extends ResponseEntityExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomGlobalExceptionHandler.class);
 

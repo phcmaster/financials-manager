@@ -1,12 +1,20 @@
 package br.com.fm.login.service;
 
-import br.com.fm.login.dto.NewUserRequest;
+import br.com.fm.login.dto.enums.ProfileEnum;
+import br.com.fm.login.dto.register.NewUserRequest;
+import br.com.fm.login.mapper.UserMapper;
+import br.com.fm.mongodb.entity.ProfileEntity;
 import br.com.fm.mongodb.entity.UserEntity;
+import br.com.fm.mongodb.repository.ProfileRepository;
 import br.com.fm.mongodb.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static br.com.fm.login.utils.BCryptPasswordEncoderUtil.passwordEncoder;
@@ -15,30 +23,28 @@ import static br.com.fm.login.utils.BCryptPasswordEncoderUtil.passwordEncoder;
 @Slf4j
 public class RegisterUserService {
 
-//    @Autowired
-//    private UserMapper mapper;
+    private UserMapper mapper = Mappers.getMapper(UserMapper.class);
 
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ProfileRepository profileRepository;
+
 
     public void registerUser(NewUserRequest request) {
 
-        userValidation(request);
+        List<ProfileEntity> profileEntities = userValidation(request);
         var passwordEncoder = passwordEncoder(request.getPassword());
+        UserEntity userEntity = mapper.requestToEntity(request, profileEntities,  passwordEncoder);
 
-        UserEntity entity = new UserEntity();
-        entity.setName(request.getName());
-        entity.setEmail(request.getEmail());
-        entity.setPassword(passwordEncoder);
-
-        userRepository.save(entity);
+        userRepository.save(userEntity);
         log.info("Register User - user created with success.");
 
     }
 
 
-    public void userValidation(NewUserRequest request) {
+    private List<ProfileEntity> userValidation(NewUserRequest request) {
 
         Optional<UserEntity> user = userRepository.findByEmail(request.getEmail());
 
@@ -53,6 +59,29 @@ public class RegisterUserService {
             throw new IllegalArgumentException("The passwords do not match!");
         }
 
+        List<String> strProfiles = request.getRole();
+
+        List<ProfileEntity> roles = new ArrayList<>();
+
+        if (strProfiles == null) {
+            ProfileEntity userRole = profileRepository.findByRole(ProfileEnum.USER.getValue())
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        } else {
+            strProfiles.forEach(profile -> {
+                if (profile.equalsIgnoreCase("admin")) {
+                    ProfileEntity adminRole = profileRepository.findByRole(ProfileEnum.ADMIN.getValue())
+                            .orElseThrow(() -> new RuntimeException("Role Admin not found."));
+                    roles.add(adminRole);
+                } else {
+                    ProfileEntity userRole = profileRepository.findByRole(ProfileEnum.USER.getValue())
+                            .orElseThrow(() -> new RuntimeException("Role User not found."));
+                    roles.add(userRole);
+                }
+            });
+        }
+
+        return roles;
     }
 
 

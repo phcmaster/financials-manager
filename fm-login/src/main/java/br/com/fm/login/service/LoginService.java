@@ -1,8 +1,8 @@
 package br.com.fm.login.service;
 
 
-import br.com.fm.login.dto.TokenResponse;
-import br.com.fm.login.dto.UserLoginRequest;
+import br.com.fm.login.dto.login.TokenResponse;
+import br.com.fm.login.dto.login.UserLoginRequest;
 import br.com.fm.mongodb.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -15,9 +15,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -61,9 +63,13 @@ public class LoginService {
 
         UserEntity loggedUser = (UserEntity) authentication.getPrincipal();
 
+        List<String> authorities = loggedUser.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+
         return Jwts.builder()
                 .setIssuer("Fm login")
-                .setSubject(loggedUser.getId())
+                .setSubject(loggedUser.getEmail())
+                .claim("authorities", authorities)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(jwtExpiration)))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
@@ -82,8 +88,9 @@ public class LoginService {
 
     }
 
-    public String tokenGetUserId(String token) {
+    public String tokenGetUserEmail(String token) {
         Claims body = Jwts.parser().setSigningKey(this.jwtSecret).parseClaimsJws(token).getBody();
         return body.getSubject();
     }
+
 }

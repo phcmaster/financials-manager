@@ -1,6 +1,6 @@
 package br.com.fm.login.service;
 
-import br.com.fm.login.dto.UpdateUserRequest;
+import br.com.fm.login.dto.InfosUpdate.UpdateUserRequest;
 import br.com.fm.mongodb.entity.UserEntity;
 import br.com.fm.mongodb.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class InfosUpdateService {
 
         if (user.isPresent()) {
             user.get().setName(request.getName());
-            userRepository.insert(user.get());
+            userRepository.save(user.get());
         }
         throw new IllegalArgumentException("User not found!");
 

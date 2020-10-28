@@ -1,4 +1,4 @@
-package br.com.fm.expenses.expensesmanager;
+package br.com.fm.expensesmanager;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

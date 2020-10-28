@@ -1,5 +1,4 @@
-package br.com.fm.login.dto;
-
+package br.com.fm.expensesmanager.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +16,5 @@ public class Session {
     private String email;
 
     private String password;
-
 
 }

@@ -1,6 +1,7 @@
 package br.com.fm.mongodb.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,10 +20,10 @@ public class ProfileEntity implements GrantedAuthority {
     private String id;
 
     @Field
-    private String profileName;
+    private String role;
 
     @Override
     public String getAuthority() {
-        return profileName;
+        return role;
     }
 }
