@@ -16,8 +16,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ExpenseEntity {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idExpense;
@@ -33,5 +31,7 @@ public class ExpenseEntity {
     private boolean installment;
 
     private int installmentTimes;
+
+    private String userId;
 
 }

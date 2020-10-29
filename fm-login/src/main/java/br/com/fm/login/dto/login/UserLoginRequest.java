@@ -16,7 +16,7 @@ import javax.validation.constraints.Min;
 @AllArgsConstructor
 public class UserLoginRequest {
 
-    @Email
+    @Email(message = "Invalid email!")
     @JsonProperty("email")
     private String email;
 

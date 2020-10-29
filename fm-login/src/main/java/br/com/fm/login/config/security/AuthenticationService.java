@@ -24,7 +24,6 @@ public class AuthenticationService implements UserDetailsService {
 
         Optional<UserEntity> user = userRepository.findByEmail(username);
 
-
         if (user.isPresent()) {
             return user.get();
         }

@@ -1,10 +1,8 @@
 package br.com.fm.expensesmanager.config.security;
 
-import br.com.fm.expensesmanager.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,9 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
-    @Autowired
-    private JwtUtils jwtUtils;
 
     @Autowired
     private InputFilter inputFilter;
@@ -43,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/expenses/**").permitAll()
+//                .antMatchers(HttpMethod.POST, "/expenses/**").permitAll()
 //                .antMatchers(HttpMethod.GET, "/expenses/**").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()

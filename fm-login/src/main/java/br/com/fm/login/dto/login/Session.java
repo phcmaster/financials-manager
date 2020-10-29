@@ -1,4 +1,4 @@
-package br.com.fm.expensesmanager.dto;
+package br.com.fm.login.dto.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

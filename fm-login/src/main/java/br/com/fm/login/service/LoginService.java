@@ -1,6 +1,7 @@
 package br.com.fm.login.service;
 
 
+import br.com.fm.login.dto.login.Session;
 import br.com.fm.login.dto.login.TokenResponse;
 import br.com.fm.login.dto.login.UserLoginRequest;
 import br.com.fm.mongodb.entity.UserEntity;
@@ -18,7 +19,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,18 +66,30 @@ public class LoginService {
 
         UserEntity loggedUser = (UserEntity) authentication.getPrincipal();
 
-        List<String> authorities = loggedUser.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-
         return Jwts.builder()
                 .setIssuer("Fm login")
-                .setSubject(loggedUser.getEmail())
-                .claim("authorities", authorities)
+                .setSubject(loggedUser.getId())
+                .addClaims(generateClaims(loggedUser))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(jwtExpiration)))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
 
+    private Map<String, Object> generateClaims(UserEntity sessionEntity) {
+        Map<String, Object> map = new HashMap<>();
+        Session session = new Session();
+
+        List<String> authorities = sessionEntity.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+
+        session.setId(sessionEntity.getId());
+        session.setUserName(sessionEntity.getUsername());
+        session.setName(sessionEntity.getName());
+        session.setAuthorities(authorities);
+
+        map.put("session", session);
+        return map;
+    }
 
     public boolean isTokenValid(String token) {
 
@@ -88,7 +103,7 @@ public class LoginService {
 
     }
 
-    public String tokenGetUserEmail(String token) {
+    public String tokenGetUserId(String token) {
         Claims body = Jwts.parser().setSigningKey(this.jwtSecret).parseClaimsJws(token).getBody();
         return body.getSubject();
     }
