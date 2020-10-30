@@ -7,10 +7,13 @@ import br.com.fm.expensesmanager.mysql.entity.ExpenseEntity;
 import br.com.fm.expensesmanager.mysql.repository.ExpenseRepository;
 import br.com.fm.expensesmanager.service.ExpenseService;
 import br.com.fm.expensesmanager.utils.JwtUtils;
+import lombok.SneakyThrows;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -25,10 +28,14 @@ public class ExpenseServiceImpl implements ExpenseService {
     private JwtUtils jwtUtils;
 
     @Override
-    public void registerExpense(ExpenseRequest request) {
+    @SneakyThrows
+    public void registerExpense(ExpenseRequest request){
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dueDate = LocalDate.parse(request.getDueDate() ,formatter);
 
         String userId = jwtUtils.getSession().getId();
-        ExpenseEntity expenseEntity = mapper.mapToEntity(request, userId);
+        ExpenseEntity expenseEntity = mapper.mapToEntity(request, userId, dueDate);
 
         repository.save(expenseEntity);
     }

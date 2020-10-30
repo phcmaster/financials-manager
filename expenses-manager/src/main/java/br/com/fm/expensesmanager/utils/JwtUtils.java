@@ -4,7 +4,6 @@ import br.com.fm.expensesmanager.dto.Session;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -20,7 +19,7 @@ public class JwtUtils implements Serializable {
     }
 
 
-    public Session obterSessao(Claims claims) {
+    public Session getUserSession(Claims claims) {
         ObjectMapper mapper = new ObjectMapper();
         Session session = mapper.convertValue(claims.get("session"), Session.class);
         this.session = session;

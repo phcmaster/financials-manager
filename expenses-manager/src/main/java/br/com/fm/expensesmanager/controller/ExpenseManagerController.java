@@ -2,26 +2,26 @@ package br.com.fm.expensesmanager.controller;
 
 
 import br.com.fm.expensesmanager.dto.ExpenseRequest;
-import br.com.fm.expensesmanager.dto.Session;
+import br.com.fm.expensesmanager.mysql.entity.ExpenseEntity;
 import br.com.fm.expensesmanager.service.ExpenseService;
-import br.com.fm.expensesmanager.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/expenses")
 public class ExpenseManagerController {
 
-    @Autowired
-    private JwtUtils jwtUtils;
 
     @Autowired
     private ExpenseService expenseService;
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerNewExpense(@RequestBody ExpenseRequest request){
+    public ResponseEntity<?> registerNewExpense(@RequestBody ExpenseRequest request) throws ParseException {
         expenseService.registerExpense(request);
         return ResponseEntity.ok().build();
 
@@ -34,10 +34,9 @@ public class ExpenseManagerController {
 
     }
 
-    @GetMapping("/teste")
-    public ResponseEntity<String> teste(){
-        Session session = jwtUtils.getSession();
-        return ResponseEntity.ok().body("Hello World!");
+    @GetMapping("/all")
+    public ResponseEntity<?> gettAllExpenses(){
+        return ResponseEntity.ok().body(expenseService.listAllExpenses());
 
     }
 

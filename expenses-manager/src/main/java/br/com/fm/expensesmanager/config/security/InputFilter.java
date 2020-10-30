@@ -5,7 +5,6 @@ import br.com.fm.expensesmanager.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -51,7 +50,6 @@ public class InputFilter extends OncePerRequestFilter {
     }
 
 
-
     private String retrieveToken(HttpServletRequest httpServletRequest) {
 
         String token = httpServletRequest.getHeader("Authorization");
@@ -63,7 +61,6 @@ public class InputFilter extends OncePerRequestFilter {
 
         return tokenFinal;
 
-
     }
 
     private void requestToAuth(HttpServletRequest request, String secret, String token) {
@@ -73,13 +70,9 @@ public class InputFilter extends OncePerRequestFilter {
                 .parseClaimsJws(token)
                 .getBody();
 
-        Session session = jwtUtils.obterSessao(claims);
-
-//        var session = claims.get("session");
-
+        Session session = jwtUtils.getUserSession(claims);
 
         if(session != null) {
-//            List<String> authorities = (List<String>) claims.get("authorities");
             List<String> authorities = session.getAuthorities();
 
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
@@ -90,7 +83,6 @@ public class InputFilter extends OncePerRequestFilter {
         }
 
     }
-
 
     public boolean isTokenValid(String token) {
 
