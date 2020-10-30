@@ -1,7 +1,7 @@
 package br.com.fm.login.controller;
 
 
-import br.com.fm.login.dto.register.NewUserRequest;
+import br.com.fm.login.dto.register.newUserRequest;
 import br.com.fm.login.dto.register.ProfileRequest;
 import br.com.fm.login.service.RegisterUserService;
 import br.com.fm.mongodb.entity.ProfileEntity;
@@ -27,7 +27,7 @@ public class RegisterController {
 
 
     @PostMapping("/createNewAccount")
-    public ResponseEntity<?> create(@RequestBody @Valid NewUserRequest request) {
+    public ResponseEntity<?> create(@RequestBody @Valid newUserRequest request) {
         registerUserService.registerUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body("User created with success.");
 

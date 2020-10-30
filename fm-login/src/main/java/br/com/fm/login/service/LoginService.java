@@ -4,6 +4,7 @@ package br.com.fm.login.service;
 import br.com.fm.login.dto.login.Session;
 import br.com.fm.login.dto.login.TokenResponse;
 import br.com.fm.login.dto.login.UserLoginRequest;
+import br.com.fm.login.utils.JwtUtils;
 import br.com.fm.mongodb.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -37,6 +38,9 @@ public class LoginService {
 
     @Value("${jwt.secret}")
     private String jwtSecret;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
 
     public ResponseEntity<Object> authenticationUser(UserLoginRequest userLoginRequest) throws Exception {
@@ -105,6 +109,7 @@ public class LoginService {
 
     public String tokenGetUserId(String token) {
         Claims body = Jwts.parser().setSigningKey(this.jwtSecret).parseClaimsJws(token).getBody();
+        jwtUtils.getUserSession(body);
         return body.getSubject();
     }
 

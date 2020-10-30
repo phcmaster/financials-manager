@@ -21,7 +21,8 @@ public class InfosUpdateController {
 
     @PutMapping("/update")
     public ResponseEntity<?> informationUpdate(@Valid @RequestBody UpdateUserRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(updateService.updateUser(request));
+        updateService.updateUser(request);
+        return ResponseEntity.status(HttpStatus.OK).body("Update with success!");
 
     }
 

@@ -20,18 +20,12 @@ public class UpdateUserRequest {
 
     @JsonProperty("name")
     @NotNull
-    @NotBlank
     @NotEmpty
     private String name;
 
     @JsonProperty("email")
     @NotNull
-    @NotBlank
     @NotEmpty
     private String email;
-
-    @JsonProperty("password")
-    @Transient
-    private String password;
 
 }

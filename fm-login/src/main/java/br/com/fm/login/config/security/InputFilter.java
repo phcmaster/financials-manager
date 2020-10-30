@@ -48,7 +48,7 @@ public class InputFilter extends OncePerRequestFilter {
 
         String userId = loginService.tokenGetUserId(token);
 
-        Optional<UserEntity> user = userRepository.findByEmail(userId);
+        Optional<UserEntity> user = userRepository.findById(userId);
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.get().getAuthorities());
 

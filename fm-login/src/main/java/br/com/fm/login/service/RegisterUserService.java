@@ -1,7 +1,7 @@
 package br.com.fm.login.service;
 
 import br.com.fm.login.dto.enums.ProfileEnum;
-import br.com.fm.login.dto.register.NewUserRequest;
+import br.com.fm.login.dto.register.newUserRequest;
 import br.com.fm.login.mapper.UserMapper;
 import br.com.fm.mongodb.entity.ProfileEntity;
 import br.com.fm.mongodb.entity.UserEntity;
@@ -32,7 +32,7 @@ public class RegisterUserService {
     private ProfileRepository profileRepository;
 
 
-    public void registerUser(NewUserRequest request) {
+    public void registerUser(newUserRequest request) {
 
         List<ProfileEntity> profileEntities = userValidation(request);
         var passwordEncoder = passwordEncoder(request.getPassword());
@@ -44,7 +44,7 @@ public class RegisterUserService {
     }
 
 
-    private List<ProfileEntity> userValidation(NewUserRequest request) {
+    private List<ProfileEntity> userValidation(newUserRequest request) {
 
         Optional<UserEntity> user = userRepository.findByEmail(request.getEmail());
 
