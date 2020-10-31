@@ -3,6 +3,7 @@ package br.com.fm.expensesmanager.service.impl;
 
 import br.com.fm.expensesmanager.dto.ExpenseRequest;
 import br.com.fm.expensesmanager.dto.ExpenseResponse;
+import br.com.fm.expensesmanager.dto.MonthlySpendResponse;
 import br.com.fm.expensesmanager.mapper.ExpenseRegisterMapper;
 import br.com.fm.expensesmanager.mysql.entity.ExpenseEntity;
 import br.com.fm.expensesmanager.mysql.repository.ExpenseRepository;
@@ -58,9 +59,8 @@ public class ExpenseServiceImpl implements ExpenseService {
             repository.save(expense.get());
         }
 
-
-
     }
+
 
     @Override
     public List<ExpenseResponse> listAllExpenses() {
@@ -69,6 +69,47 @@ public class ExpenseServiceImpl implements ExpenseService {
         List<ExpenseEntity> expenses = repository.findAllByUserId(userId);
         List<ExpenseResponse> expenseResponse = mapper.mapToResponse(expenses);
         return  expenseResponse;
+    }
+
+
+    @Override
+    public void deleteExpense(Long id) {
+        String userId = jwtUtils.getSession().getId();
+
+        repository.deleteByIdExpenseAndUserId(id, userId);
+    }
+
+    @Override
+    public Double monthlyValueSpend() {
+        String userId = jwtUtils.getSession().getId();
+        return repository.monthlyValueSpend(userId);
+    }
+
+    @Override
+    public Double monthlyAverageSpend() {
+        String userId = jwtUtils.getSession().getId();
+        return repository.monthlyAverageSpend(userId);
+    }
+
+
+    public MonthlySpendResponse monthlySpend(){
+        MonthlySpendResponse monthlySpendResponse = new MonthlySpendResponse();
+
+        Double valueSpend = monthlyValueSpend();
+        Double avgSpend = monthlyAverageSpend();
+
+        if(valueSpend.equals(null)){
+            monthlySpendResponse.setMonthlyValueSpend(0.00);
+            monthlySpendResponse.setMonthlyAverageSpend(avgSpend);
+        }else if (avgSpend.equals(null)){
+            monthlySpendResponse.setMonthlyAverageSpend(0.00);
+            monthlySpendResponse.setMonthlyValueSpend(valueSpend);
+        }else {
+            monthlySpendResponse.setMonthlyAverageSpend(avgSpend);
+            monthlySpendResponse.setMonthlyValueSpend(valueSpend);
+        }
+        return monthlySpendResponse;
+
     }
 
 
