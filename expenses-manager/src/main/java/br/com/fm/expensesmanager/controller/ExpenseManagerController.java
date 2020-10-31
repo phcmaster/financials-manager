@@ -2,14 +2,12 @@ package br.com.fm.expensesmanager.controller;
 
 
 import br.com.fm.expensesmanager.dto.ExpenseRequest;
-import br.com.fm.expensesmanager.mysql.entity.ExpenseEntity;
 import br.com.fm.expensesmanager.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/expenses")
@@ -29,7 +27,7 @@ public class ExpenseManagerController {
 
     @PutMapping("/uptade/{id}")
     public ResponseEntity<String> updateExpense(@PathVariable Long id, @RequestBody ExpenseRequest request){
-
+        expenseService.updateExpense(id, request);
         return ResponseEntity.ok().body("updated");
 
     }

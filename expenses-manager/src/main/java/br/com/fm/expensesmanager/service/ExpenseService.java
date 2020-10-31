@@ -2,7 +2,7 @@ package br.com.fm.expensesmanager.service;
 
 
 import br.com.fm.expensesmanager.dto.ExpenseRequest;
-import br.com.fm.expensesmanager.mysql.entity.ExpenseEntity;
+import br.com.fm.expensesmanager.dto.ExpenseResponse;
 
 import java.text.ParseException;
 import java.util.List;
@@ -11,9 +11,9 @@ public interface ExpenseService {
 
     void registerExpense(ExpenseRequest request) throws ParseException;
 
-    void updateExpense(ExpenseRequest request);
+    void updateExpense(Long id, ExpenseRequest request);
 
-    List<ExpenseEntity> listAllExpenses();
+    List<ExpenseResponse>listAllExpenses();
 
 
 
