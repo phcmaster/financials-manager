@@ -1,11 +1,11 @@
 package br.com.fm.notification.controller;
 
 
+import br.com.fm.notification.dto.UserOtpRequest;
 import br.com.fm.notification.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/notification")
@@ -15,10 +15,9 @@ public class NotificationController {
     private EmailService emailService;
 
     @PostMapping("/send-email")
-    public void sendEmail(String otp){
-
-        emailService.sendEmail(otp);
-
+    public ResponseEntity<String> sendEmail(@RequestParam String otp, @RequestBody UserOtpRequest userOtpRequest){
+        emailService.sendEmailtoLoginValidation(otp, userOtpRequest);
+        return ResponseEntity.ok().body("Email sended!");
     }
 
 }
