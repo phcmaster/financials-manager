@@ -32,6 +32,14 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<Object>(response, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = {CouldNotSendNotificationException.class})
+    public ResponseEntity<Object> couldNotSendNotificationException(CouldNotSendNotificationException ex, WebRequest webRequest) {
+        var response = new GlobalExceptionResponse();
+        response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.setMessage(ex.getMessage());
+        return new ResponseEntity<Object>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,

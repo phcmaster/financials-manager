@@ -34,13 +34,13 @@ public class RegisterUserService {
 
     public void registerUser(newUserRequest request) {
 
+
         List<ProfileEntity> profileEntities = userValidation(request);
         var passwordEncoder = passwordEncoder(request.getPassword());
         UserEntity userEntity = mapper.requestToEntity(request, profileEntities,  passwordEncoder);
 
         userRepository.save(userEntity);
         log.info("Register User - user created with success.");
-
     }
 
 
@@ -49,8 +49,8 @@ public class RegisterUserService {
         Optional<UserEntity> user = userRepository.findByEmail(request.getEmail());
 
         if (user.isPresent()) {
-            log.error("User Validation - The User already exist!");
-            throw new IllegalArgumentException("The User already exist!");
+            log.error("User Validation - The user already exist!");
+            throw new IllegalArgumentException("The user already exist!");
 
         }
 
@@ -83,6 +83,7 @@ public class RegisterUserService {
 
         return roles;
     }
+
 
 
 }
