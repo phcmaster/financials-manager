@@ -77,7 +77,6 @@ public class InfosUpdateService {
     }
 
 
-
     public boolean otpValidation(String otp, String email){
 
         Optional<OtpEntity> userOtp = otpRepository.findByEmail(email);
