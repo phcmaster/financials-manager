@@ -11,7 +11,6 @@ import br.com.fm.mongodb.entity.UserEntity;
 import br.com.fm.mongodb.repository.OtpRepository;
 import br.com.fm.mongodb.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,22 +18,25 @@ import java.util.Optional;
 
 import static br.com.fm.login.utils.BCryptPasswordEncoderUtil.passwordEncoder;
 
-@Service
 @Slf4j
+@Service
 public class InfosUpdateService {
 
-    @Autowired
-    private JwtUtils jwtUtils;
 
-    @Autowired
+    private final JwtUtils jwtUtils;
+
     private UserRepository userRepository;
 
-    @Autowired
-    private OtpRepository otpRepository;
+    private final OtpRepository otpRepository;
 
+    private final FeignClientNotification notification;
 
-    @Autowired
-    private FeignClientNotification notification;
+    public InfosUpdateService(JwtUtils jwtUtils, UserRepository userRepository, OtpRepository otpRepository, FeignClientNotification notification) {
+        this.jwtUtils = jwtUtils;
+        this.userRepository = userRepository;
+        this.otpRepository = otpRepository;
+        this.notification = notification;
+    }
 
 
     public void updateUser(UpdateUserRequest request) {
