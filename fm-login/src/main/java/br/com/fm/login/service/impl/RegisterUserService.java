@@ -1,4 +1,4 @@
-package br.com.fm.login.service;
+package br.com.fm.login.service.impl;
 
 import br.com.fm.login.dto.enums.ProfileEnum;
 import br.com.fm.login.dto.register.newUserRequest;

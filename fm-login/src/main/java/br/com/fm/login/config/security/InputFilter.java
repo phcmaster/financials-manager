@@ -1,6 +1,6 @@
 package br.com.fm.login.config.security;
 
-import br.com.fm.login.service.LoginService;
+import br.com.fm.login.service.impl.LoginService;
 import br.com.fm.mongodb.entity.UserEntity;
 import br.com.fm.mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

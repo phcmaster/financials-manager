@@ -3,7 +3,7 @@ package br.com.fm.login.controller;
 
 import br.com.fm.login.dto.InfosUpdate.PasswordUpdateRequest;
 import br.com.fm.login.dto.InfosUpdate.UpdateUserRequest;
-import br.com.fm.login.service.InfosUpdateService;
+import br.com.fm.login.service.impl.InfosUpdateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 public class InfosUpdateController {
 
     @Autowired
-    private InfosUpdateService updateService;
+    private InfosUpdateServiceImpl updateService;
 
 
     @PutMapping("/update")
@@ -30,7 +30,7 @@ public class InfosUpdateController {
     @PostMapping("/otp")
     public ResponseEntity<?> otpValidation(@RequestParam String otp, @RequestParam String email) {
         updateService.otpValidation(otp, email);
-        return ResponseEntity.status(HttpStatus.CREATED).body("OTP valid.");
+        return ResponseEntity.status(HttpStatus.OK).body("OTP valid.");
 
     }
 

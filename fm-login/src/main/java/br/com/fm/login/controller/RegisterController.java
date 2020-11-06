@@ -3,7 +3,7 @@ package br.com.fm.login.controller;
 
 import br.com.fm.login.dto.register.newUserRequest;
 import br.com.fm.login.dto.register.ProfileRequest;
-import br.com.fm.login.service.RegisterUserService;
+import br.com.fm.login.service.impl.RegisterUserService;
 import br.com.fm.mongodb.entity.ProfileEntity;
 import br.com.fm.mongodb.repository.ProfileRepository;
 import lombok.var;
