@@ -98,10 +98,13 @@ public class ExpenseServiceImpl implements ExpenseService {
         Double valueSpend = monthlyValueSpend();
         Double avgSpend = monthlyAverageSpend();
 
-        if(valueSpend.equals(null)){
+        if(valueSpend == null && avgSpend == null){
+            monthlySpendResponse.setMonthlyValueSpend(0.00);
+            monthlySpendResponse.setMonthlyAverageSpend(0.00);
+        }else if(valueSpend == null){
             monthlySpendResponse.setMonthlyValueSpend(0.00);
             monthlySpendResponse.setMonthlyAverageSpend(avgSpend);
-        }else if (avgSpend.equals(null)){
+        }else if (avgSpend == null){
             monthlySpendResponse.setMonthlyAverageSpend(0.00);
             monthlySpendResponse.setMonthlyValueSpend(valueSpend);
         }else {
