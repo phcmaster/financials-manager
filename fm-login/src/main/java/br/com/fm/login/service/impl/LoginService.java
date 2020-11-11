@@ -6,7 +6,6 @@ import br.com.fm.login.dto.login.TokenResponse;
 import br.com.fm.login.dto.login.UserLoginRequest;
 import br.com.fm.login.utils.JwtUtils;
 import br.com.fm.mongodb.entity.UserEntity;
-import br.com.fm.mongodb.repository.OtpRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,6 +19,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +53,7 @@ public class LoginService {
             Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             String token = generateToken(authenticate);
             log.info("Auth user - token generated!");
-            return ResponseEntity.ok().body(new TokenResponse(token, "Bearer"));
+            return ResponseEntity.ok().body(new TokenResponse(token, "Bearer", LocalDateTime.now()));
 
         } catch (AuthenticationException e) {
             log.error("Auth user -  could not generate token!");
