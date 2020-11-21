@@ -3,7 +3,7 @@ package br.com.fm.login.controller;
 
 import br.com.fm.login.dto.register.newUserRequest;
 import br.com.fm.login.dto.register.ProfileRequest;
-import br.com.fm.login.service.impl.RegisterUserService;
+import br.com.fm.login.service.impl.RegisterUserServiceImpl;
 import br.com.fm.mongodb.entity.ProfileEntity;
 import br.com.fm.mongodb.repository.ProfileRepository;
 import lombok.var;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class RegisterController {
 
     @Autowired
-    private RegisterUserService registerUserService;
+    private RegisterUserServiceImpl registerUserService;
 
     @Autowired
     private ProfileRepository repository;

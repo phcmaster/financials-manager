@@ -15,7 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 import static br.com.fm.login.utils.BCryptPasswordEncoderUtil.passwordEncoder;
@@ -32,14 +34,15 @@ public class InfosUpdateServiceImpl implements InfosUpdateService {
 
     private final OtpRepository otpRepository;
 
-    private FeignClientNotification notification;
+    private final FeignClientNotification notification;
 
 
     @Autowired
-    public InfosUpdateServiceImpl(JwtUtils jwtUtils, UserRepository userRepository, OtpRepository otpRepository) {
+    public InfosUpdateServiceImpl(JwtUtils jwtUtils, UserRepository userRepository, OtpRepository otpRepository, FeignClientNotification notification) {
         this.jwtUtils = jwtUtils;
         this.userRepository = userRepository;
         this.otpRepository = otpRepository;
+        this.notification = notification;
     }
 
 
@@ -85,7 +88,7 @@ public class InfosUpdateServiceImpl implements InfosUpdateService {
 
     public boolean otpValidation(String otp, String email){
 
-        Optional<OtpEntity> userOtp = otpRepository.findByEmail(email);
+        Optional<OtpEntity> userOtp = otpRepository.findByEmailAndOtp(email, otp);
 
         if(userOtp.get().getOtp().equals(otp)){
             userOtp.get().setStatus(true);
@@ -108,7 +111,7 @@ public class InfosUpdateServiceImpl implements InfosUpdateService {
 
         OtpEntity otpEntity = new OtpEntity();
 
-        otpEntity.setCreation(LocalDateTime.now());
+        otpEntity.setCreation(new Date());
         otpEntity.setOtp(String.valueOf(randomOtp));
         otpEntity.setUserId(user.getId());
         otpEntity.setEmail(user.getEmail());

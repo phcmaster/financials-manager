@@ -1,7 +1,7 @@
 package br.com.fm.login.config.security;
 
 
-import br.com.fm.login.service.impl.LoginService;
+import br.com.fm.login.service.LoginService;
 import br.com.fm.mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -50,7 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/register/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/informations/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/informations/forgot-password").permitAll()
+                .antMatchers(HttpMethod.POST, "/informations/otp").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface FeignClientNotification {
 
     @PostMapping(value = "/notification/send-email")
-    String sendEmailNotification(@RequestParam String otp, @RequestBody UserOtpRequest request);
+    String sendEmailNotification(@RequestParam(name = "otp") String otp, @RequestBody UserOtpRequest request);
 
 }

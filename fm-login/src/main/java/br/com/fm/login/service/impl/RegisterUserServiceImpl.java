@@ -3,6 +3,7 @@ package br.com.fm.login.service.impl;
 import br.com.fm.login.dto.enums.ProfileEnum;
 import br.com.fm.login.dto.register.newUserRequest;
 import br.com.fm.login.mapper.UserMapper;
+import br.com.fm.login.service.RegisterUserService;
 import br.com.fm.mongodb.entity.ProfileEntity;
 import br.com.fm.mongodb.entity.UserEntity;
 import br.com.fm.mongodb.repository.ProfileRepository;
@@ -21,7 +22,7 @@ import static br.com.fm.login.utils.BCryptPasswordEncoderUtil.passwordEncoder;
 
 @Service
 @Slf4j
-public class RegisterUserService {
+public class RegisterUserServiceImpl implements RegisterUserService {
 
     private UserMapper mapper = Mappers.getMapper(UserMapper.class);
 

@@ -1,12 +1,10 @@
 package br.com.fm.notification.service;
 
 import br.com.fm.notification.dto.UserOtpRequest;
-import br.com.fm.notification.utils.JwtUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

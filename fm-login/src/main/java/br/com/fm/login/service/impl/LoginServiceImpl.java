@@ -4,9 +4,9 @@ package br.com.fm.login.service.impl;
 import br.com.fm.login.dto.login.Session;
 import br.com.fm.login.dto.login.TokenResponse;
 import br.com.fm.login.dto.login.UserLoginRequest;
+import br.com.fm.login.service.LoginService;
 import br.com.fm.login.utils.JwtUtils;
 import br.com.fm.mongodb.entity.UserEntity;
-import br.com.fm.mongodb.repository.OtpRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class LoginService {
+public class LoginServiceImpl implements LoginService {
 
 
     @Autowired
@@ -44,7 +45,7 @@ public class LoginService {
     private JwtUtils jwtUtils;
 
 
-    public ResponseEntity<Object> authenticationUser(UserLoginRequest userLoginRequest) throws Exception {
+    public ResponseEntity<Object> authenticationUser(UserLoginRequest userLoginRequest) {
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = requestToAuth(userLoginRequest);
 

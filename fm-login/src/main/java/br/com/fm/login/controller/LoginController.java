@@ -2,7 +2,7 @@ package br.com.fm.login.controller;
 
 
 import br.com.fm.login.dto.login.UserLoginRequest;
-import br.com.fm.login.service.impl.LoginService;
+import br.com.fm.login.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
