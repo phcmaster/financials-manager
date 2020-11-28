@@ -1,6 +1,7 @@
 package br.com.fm.login.controller;
 
 
+import br.com.fm.login.dto.login.Session;
 import br.com.fm.login.dto.login.UserLoginRequest;
 import br.com.fm.login.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class LoginController {
         ResponseEntity<Object> tokenResponse = loginService.authenticationUser(UserLoginRequest);
         return ResponseEntity.ok().body(tokenResponse.getBody());
 
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<Session> listUser() {
+        return ResponseEntity.ok().body(loginService.listUser());
     }
 
 

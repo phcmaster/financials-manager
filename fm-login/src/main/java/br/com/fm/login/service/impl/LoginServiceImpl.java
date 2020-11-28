@@ -7,10 +7,12 @@ import br.com.fm.login.dto.login.UserLoginRequest;
 import br.com.fm.login.service.LoginService;
 import br.com.fm.login.utils.JwtUtils;
 import br.com.fm.mongodb.entity.UserEntity;
+import br.com.fm.mongodb.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +23,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,6 +42,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private JwtUtils jwtUtils;
+
+    @Autowired
+    private UserRepository repository;
 
 
     public ResponseEntity<Object> authenticationUser(UserLoginRequest userLoginRequest) {
@@ -113,6 +115,13 @@ public class LoginServiceImpl implements LoginService {
         Claims body = Jwts.parser().setSigningKey(this.jwtSecret).parseClaimsJws(token).getBody();
         jwtUtils.getUserSession(body);
         return body.getSubject();
+    }
+
+    @Override
+    public Session listUser() {
+     var user = jwtUtils.getSession();
+//        Optional<UserEntity> user = repository.findByEmail(userName);
+        return user;
     }
 
 

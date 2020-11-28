@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
@@ -6,31 +6,61 @@ import Home from './components/home.component'
 import Nav from './components/nav.component'
 import Login from './components/login.component'
 import Register from './components/register.component'
+import axios from 'axios';
 
 
-function App() {
-  return (
+export default class App extends Component {
 
-  <BrowserRouter>
-    <div className="App">
-        <Nav />
+  state = {};
 
-      <div className="auth-wrapper">
-        <div className="auth-inner">
-         
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-          </Switch>
+  componentDidMount = () => {
+
+    axios.get('auth/user').then(
+
+        res => {
+               this.setUser(res.data);
+        
+        }
+    ).catch(
+        err => {
+            console.log(err);
+        }
+    );
+
+};
+
+
+setUser = user => {
+  this.setState({
+      user: user
+  });
+
+};
+
+
+  render(){
+      return (
+
+      <BrowserRouter>
+        <div className="App">
+            <Nav user={this.state.user} setUser={this.setUser} />
+
+          <div className="auth-wrapper">
+            <div className="auth-inner">
+            
+              <Switch>
+                <Route exact path="/" component={() => <Home user={this.state.user} />} />
+                <Route exact path="/login" component={() => <Login setUser={this.setUser} />} />
+                <Route exact path="/register" component={Register} />
+              </Switch>
+
+            </div>
+          </div>
 
         </div>
-      </div>
+    </BrowserRouter>
+        
+      );
 
-    </div>
-</BrowserRouter>
-    
-  );
 }
-
-export default App;
+}

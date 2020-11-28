@@ -31,7 +31,6 @@ public class newUserRequest {
     @JsonProperty("confirmPassword")
     private String confirmPassword;
 
-    @NotNull
     @JsonProperty("role")
     private List<String> role;
 

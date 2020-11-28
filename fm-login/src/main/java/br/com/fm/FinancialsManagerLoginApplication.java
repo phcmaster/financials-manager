@@ -14,4 +14,5 @@ public class FinancialsManagerLoginApplication {
         SpringApplication.run(FinancialsManagerLoginApplication.class, args);
     }
 
+
 }
