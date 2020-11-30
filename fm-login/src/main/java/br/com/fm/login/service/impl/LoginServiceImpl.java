@@ -120,7 +120,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Session listUser() {
      var user = jwtUtils.getSession();
-//        Optional<UserEntity> user = repository.findByEmail(userName);
         return user;
     }
 

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import Alert from 'react-bootstrap/Alert'
 
 export default class Login extends Component {
        
-    state = {
-        
-    }
+    state = {}
 
     handleSubmit = e => {
         e.preventDefault();
@@ -21,12 +20,17 @@ export default class Login extends Component {
             res => {
                 localStorage.setItem('token', res.data.token);
                 this.setState({
-                    loggedIn: true
+                    loggedIn: true,
+                    error: false
                 });
-                this.props.setUser(res.data);
+                this.handleUser();
             }
         ).catch(
             err => {
+                this.setState({
+                    loggedIn: false,
+                    error: err.response.status
+                });
                 console.log(err);
             }
         );
@@ -34,32 +38,87 @@ export default class Login extends Component {
     };
 
 
+handleUser(){
+
+    axios.get('auth/user').then(
+
+        res => {
+            this.props.setUser(res.data);
+            
+        }
+    ).catch(
+        err => {
+            console.log(err);
+        }
+    );
+}
+
+
 render(){
+
 
     if(this.state.loggedIn){
         return <Redirect to={'/'} />;
-    }
+    
+    }else if(this.state.error === 400) {
         
-    return (
-        <form  onSubmit={this.handleSubmit}>
-        <h3>Login</h3>
+        return (
+            <form  onSubmit={this.handleSubmit}>
+            
+            <Alert variant="danger">
+                Senha e/ou email incorretos.
+            </Alert>
 
-        <div className="form-group">
-          <label>Email:</label>
-          <input type="email" className="form-control" placeholder="Email" 
-          onChange={e => this.email = e.target.value} />
-        </div>
+            <h3>Login</h3>
+    
+            <div className="form-group">
+              <label>Email:</label>
+              <input type="email" className="form-control" placeholder="Email" 
+              onChange={e => this.email = e.target.value} />
+            </div>
+    
+            <div className="form-group">
+              <label>Senha:</label>
+              <input type="password" className="form-control" placeholder="Senha"
+              onChange={e => this.password = e.target.value} />
+            </div>
+    
+            <button className="btn btn-primary btn-block">Entrar</button>
+                <p className="forgot-password text-center">
+                    <Link to={'/forgotPassword'}> Esqueceu a senha ?</Link>
+                </p>
+        </form>
+      
+     )
 
-        <div className="form-group">
-          <label>Senha:</label>
-          <input type="password" className="form-control" placeholder="Senha"
-          onChange={e => this.password = e.target.value} />
-        </div>
+    }else{
+        
+        return (
+      
+            <form  onSubmit={this.handleSubmit}>    
 
-        <button className="btn btn-primary btn-block">Entrar</button>
-
-    </form>
-           
-    )
-}
+            <h3>Login</h3>
+    
+            <div className="form-group">
+              <label>Email:</label>
+              <input type="email" className="form-control" placeholder="Email" 
+              onChange={e => this.email = e.target.value} />
+            </div>
+    
+            <div className="form-group">
+              <label>Senha:</label>
+              <input type="password" className="form-control" placeholder="Senha"
+              onChange={e => this.password = e.target.value} />
+            </div>
+    
+            <button className="btn btn-primary btn-block">Entrar</button>
+                <p className="forgot-password text-center">
+                    <Link to={'/forgotPassword'}> Esqueceu a senha ?</Link>
+                </p>
+        </form>
+          )
+        
+        }
+   
+    }
 }

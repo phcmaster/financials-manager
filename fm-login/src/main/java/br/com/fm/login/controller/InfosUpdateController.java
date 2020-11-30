@@ -4,6 +4,7 @@ package br.com.fm.login.controller;
 import br.com.fm.login.dto.InfosUpdate.PasswordUpdateRequest;
 import br.com.fm.login.dto.InfosUpdate.UpdateUserRequest;
 import br.com.fm.login.service.InfosUpdateService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,8 @@ public class InfosUpdateController {
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(@RequestParam String email) {
+    @HystrixCommand(fallbackMethod = "emailFallBackMethod")
+    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
         updateService.forgotPassword(email);
         return ResponseEntity.status(HttpStatus.CREATED).body("An email was send to you to change your password.");
 
@@ -47,5 +49,10 @@ public class InfosUpdateController {
         updateService.otpValidation(otp, email);
         return ResponseEntity.status(HttpStatus.OK).body("OTP valid.");
 
+    }
+
+
+    public ResponseEntity<String> emailFallBackMethod(String email){
+        return ResponseEntity.ok().body("Email service is not responding please try again later!");
     }
 }

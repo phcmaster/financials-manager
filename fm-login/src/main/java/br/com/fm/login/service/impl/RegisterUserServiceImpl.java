@@ -51,13 +51,13 @@ public class RegisterUserServiceImpl implements RegisterUserService {
 
         if (user.isPresent()) {
             log.error("User Validation - The user already exist!");
-            throw new IllegalArgumentException("The user already exist!");
+            throw new IllegalArgumentException("Já existe uma conta vinculada a este email.");
 
         }
 
         if (!request.getPassword().equals(request.getConfirmPassword())) {
             log.error("User Validation - The passwords do not match!");
-            throw new IllegalArgumentException("The passwords do not match!");
+            throw new IllegalArgumentException("As senhas não conferem!");
         }
 
         List<String> strProfiles = request.getRole();

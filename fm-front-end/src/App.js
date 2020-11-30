@@ -7,6 +7,9 @@ import Nav from './components/nav.component'
 import Login from './components/login.component'
 import Register from './components/register.component'
 import axios from 'axios';
+import { Forgot } from './components/forgot.component';
+import { Otp } from './components/otp.component';
+import { ChangePassword } from './components/changePassword.component';
 
 
 export default class App extends Component {
@@ -52,6 +55,9 @@ setUser = user => {
                 <Route exact path="/" component={() => <Home user={this.state.user} />} />
                 <Route exact path="/login" component={() => <Login setUser={this.setUser} />} />
                 <Route exact path="/register" component={Register} />
+                <Route exact path="/forgotPassword" component={Forgot} />
+                <Route exact path="/otp" component={() => <Otp user={this.state.user} />} />
+                <Route exact path="/change-password" component={ChangePassword} />
               </Switch>
 
             </div>

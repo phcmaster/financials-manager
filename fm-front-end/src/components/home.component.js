@@ -5,6 +5,7 @@ export default class Home extends Component {
        
 state = {};
 
+
 componentDidMount() {
   
  axios.get('auth/user').then(
@@ -26,7 +27,7 @@ componentDidMount() {
 
         if(this.props.user){
             return (
-                <h2>Hi {this.props.user.name} </h2>             
+                <h2>Hi {this.props.user.name} </h2>
             )
         }else{
             return (
