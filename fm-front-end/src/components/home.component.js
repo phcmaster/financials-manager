@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import Jumbotron from 'react-bootstrap/Jumbotron'
+import Container from 'react-bootstrap/Container'
+
 
 export default class Home extends Component {
        
@@ -27,12 +30,30 @@ componentDidMount() {
 
         if(this.props.user){
             return (
-                <h2>Hi {this.props.user.name} </h2>
+
+            <Jumbotron fluid>
+            <Container>
+            <h2>Hi {this.props.user.name} </h2>
+                <p>
+                This is a modified jumbotron that occupies the entire horizontal space of
+                its parent.
+                </p>
+            </Container>
+            </Jumbotron>
+
             )
         }else{
             return (
-                <h2>You are not logged in.</h2>
-            )              
+                <Jumbotron fluid>
+                <Container>
+                <h2>Hello world!</h2>
+                    <p>
+                    This is a modified jumbotron that occupies the entire horizontal space of
+                    its parent.
+                    </p>
+                </Container>
+                </Jumbotron>
+            )      
 
         }        
         

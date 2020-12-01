@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert'
-import { Redirect } from "react-router-dom";
 
 export default class Register extends Component {
 
@@ -55,7 +54,7 @@ export default class Register extends Component {
         
                 <form  onSubmit={this.handleSubmit}>
 
-            <Alert variant="success" open={this.state.visible}>
+            <Alert variant="success" >
                Conta registrada com sucesso.
             </Alert>
 

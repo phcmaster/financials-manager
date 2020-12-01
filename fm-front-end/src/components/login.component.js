@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { Link, Redirect } from "react-router-dom";
-import Alert from 'react-bootstrap/Alert'
+import Alert from 'react-bootstrap/Alert';
 
 export default class Login extends Component {
        
@@ -58,9 +58,11 @@ render(){
 
 
     if(this.state.loggedIn){
-        return <Redirect to={'/'} />;
+        return <Redirect to={'/'} />; //dashboard
     
     }else if(this.state.error === 400) {
+
+        let type = {}
         
         return (
             <form  onSubmit={this.handleSubmit}>

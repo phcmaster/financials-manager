@@ -17,11 +17,10 @@ handlerLogOut = () => {
 
             buttons = (
                 <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                    <Link  to={'/'} onClick={() => this.handlerLogOut()} className="nav-link">Logout</Link>
-                </li>
-                
-            </ul>
+                    <li className="nav-item">
+                        <Link  to={'/login'} onClick={() => this.handlerLogOut()} className="nav-link">Logout</Link>
+                    </li>
+                </ul>
         )
 
         }else{
@@ -39,17 +38,15 @@ handlerLogOut = () => {
         }
         return (
 
-<div className="Nav">
-<nav className="navbar navbar-expand navbar-light fixed-top">
-        <div className="container">
-            <Link className="navbar-brand" to={'/'}>Home</Link>
-            <div className="collapse navbar-collapse">
+    <div className="Nav">
+        <nav className="navbar navbar-expand navbar-light fixed-top">
+            <div className="container">
+                <div className="collapse navbar-collapse">
               {buttons}
-             </div>
-        </div>
-    </nav>
-
-</div>
+                </div>
+            </div>
+        </nav>
+    </div>
             
     )
 }

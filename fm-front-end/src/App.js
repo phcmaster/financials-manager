@@ -44,15 +44,21 @@ setUser = user => {
   render(){
       return (
 
+        
+
       <BrowserRouter>
+        <div className="container mt-5"> 
+           <Route exact path="/" component={() => <Home user={this.state.user} />} />
+            </div>
         <div className="App">
             <Nav user={this.state.user} setUser={this.setUser} />
 
+           
           <div className="auth-wrapper">
             <div className="auth-inner">
             
               <Switch>
-                <Route exact path="/" component={() => <Home user={this.state.user} />} />
+              
                 <Route exact path="/login" component={() => <Login setUser={this.setUser} />} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/forgotPassword" component={Forgot} />
