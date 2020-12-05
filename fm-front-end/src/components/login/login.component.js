@@ -60,7 +60,7 @@ render(){
 
 
     if(this.state.loggedIn){
-        return <Redirect to={'/'} />; //dashboard
+        return <Redirect to={'/dashboard'} />; //dashboard
     
     }else if(this.state.error === 400) {
 

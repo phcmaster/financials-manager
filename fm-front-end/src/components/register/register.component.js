@@ -99,6 +99,7 @@ export default class Register extends Component {
     }else if(this.state.error){
 
         return (
+          
           <div className="auth-wrapper">
           <div className="card">
           <div class="card-body">

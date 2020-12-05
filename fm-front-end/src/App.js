@@ -10,6 +10,7 @@ import axios from 'axios';
 import { Forgot } from './components/login/forgot.component';
 import { Otp } from './components/login/otp.component';
 import { ChangePassword } from './components/login/changePassword.component';
+import Dashboard  from './components/dashboard/dashboard.component';
 
 
 export default class App extends Component {
@@ -20,48 +21,49 @@ export default class App extends Component {
 
     axios.get('auth/user').then(
 
-        res => {
-               this.setUser(res.data);
-        
-        }
-    ).catch(
-        err => {
-            console.log(err);
+      res => {
+        this.setUser(res.data);
 
-        }
+      }
+    ).catch(
+      err => {
+        console.log(err);
+
+      }
     );
 
-};
+  };
 
 
-setUser = user => {
-  this.setState({
+  setUser = user => {
+    this.setState({
       user: user
-  });
+    });
 
-};
+  };
 
 
-  render(){
-      return (
+  render() {
+    return (
 
       <BrowserRouter>
-        <div className="container mt-5">
-           <Route exact path="/" component={() => <Home user={this.state.user} />} />
-            </div>
+        <div className="container">
+          <Route exact path="/" component={() => <Home user={this.state.user} />} />
+        </div>
         <div className="App">
-            <Nav user={this.state.user} setUser={this.setUser} />
-            <Switch>
-                <Route exact path="/login" component={() => <Login setUser={this.setUser} />} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/forgotPassword" component={Forgot} />
-                <Route exact path="/otp" component={() => <Otp user={this.state.user} />} />
-                <Route exact path="/change-password" component={ChangePassword} />
-              </Switch>
-           </div>
-    </BrowserRouter>
-        
-      );
+          <Nav user={this.state.user} setUser={this.setUser} />
+          <Switch>
+            <Route exact path="/login" component={() => <Login setUser={this.setUser} />} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/forgotPassword" component={Forgot} />
+            <Route exact path="/otp" component={() => <Otp user={this.state.user} />} />
+            <Route exact path="/change-password" component={ChangePassword} />
+          </Switch>
+        </div>
+      </BrowserRouter>
 
-}
+    );
+
+  }
 }
