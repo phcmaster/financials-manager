@@ -7,36 +7,16 @@ export class Otp extends Component{
 
     state = {}
 
-    // componentDidMount() {
-  
-    //     axios.get('auth/user').then(
-       
-    //            res => {
-    //                   this.setState({
-    //                       user: res.data
-    //                   });
-                   
-    //            }
-    //        ).catch(
-    //            err => {
-    //                console.log(err);
-    //            }
-    //        );
-       
-    //    }
-
-
     handleSubmit = e => {
             e.preventDefault();
 
-        axios.post('informations/otp',  null, {
+        axios.post('http://localhost:8081/informations/otp', null, {
             params: {
-                email: 'phcmaster4@gmail.com', //pegar o email do usuario
+                email: this.props.user.userName, //pegar o email do usuario
                 otp: this.otp
         
             }
         }).then(
-    
             res => {
                 this.setState({
                     valid: true
@@ -50,7 +30,24 @@ export class Otp extends Component{
         );
          
     };
+
+    componentDidMount = () => {
+
+ 
+        axios.get('http://localhost:8081/auth/user').then(
+
+            res => {
+                this.props.setUser(res.data);
+
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+
     
+}
 
     render(){
 

@@ -95,8 +95,8 @@ public class ExpenseServiceImpl implements ExpenseService {
     public MonthlySpendResponse monthlySpend(){
         MonthlySpendResponse monthlySpendResponse = new MonthlySpendResponse();
 
-        Double valueSpend = monthlyValueSpend();
-        Double avgSpend = monthlyAverageSpend();
+        Double valueSpend = this.monthlyValueSpend();
+        Double avgSpend = this.monthlyAverageSpend();
 
         if(valueSpend == null && avgSpend == null){
             monthlySpendResponse.setMonthlyValueSpend(0.00);

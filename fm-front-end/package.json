@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.13",
+    "@material-ui/core": "^4.11.2",
+    "@react-navigation/drawer": "^5.11.4",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.1",
     "@testing-library/user-event": "^12.1.10",
@@ -10,6 +14,7 @@
     "bootstrap": "^4.5.3",
     "express": "^4.17.1",
     "express-favicon": "^2.0.1",
+    "moment": "^2.29.1",
     "path": "^0.12.7",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",

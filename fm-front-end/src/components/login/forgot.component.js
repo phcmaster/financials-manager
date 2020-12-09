@@ -11,7 +11,7 @@ export class Forgot extends Component{
         e.preventDefault();
         
 
-    axios.post('informations/forgot-password', null, {
+    axios.post('http://localhost:8081/informations/forgot-password', null, {
         params: {
             email: this.email
         }

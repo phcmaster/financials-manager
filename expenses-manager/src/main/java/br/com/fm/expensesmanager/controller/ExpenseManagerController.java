@@ -22,7 +22,7 @@ public class ExpenseManagerController {
     @PostMapping("/register")
     public ResponseEntity<?> registerNewExpense(@RequestBody ExpenseRequest request) throws ParseException {
         expenseService.registerExpense(request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Despesa cadastrada com sucesso");
 
     }
 

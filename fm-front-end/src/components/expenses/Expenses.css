@@ -16,12 +16,13 @@
 }
 
 .auth-wrapper {
-    display: flex;
+    display: center;
     justify-content: center;
     flex-direction: column;
     text-align: left;
-    width: 500px;
-    margin: auto;
+    height: 300px;
+    width: 650px;
+    margin: 300px;
     padding: 40px 55px 45px 55px;
     border-radius: 15px;
     

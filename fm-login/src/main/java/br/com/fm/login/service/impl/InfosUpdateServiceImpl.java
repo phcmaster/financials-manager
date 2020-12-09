@@ -90,8 +90,8 @@ public class InfosUpdateServiceImpl implements InfosUpdateService {
 
         Optional<OtpEntity> userOtp = otpRepository.findByEmailAndOtp(email, otp);
 
-        if(userOtp.get().getOtp().equals(otp)){
-            userOtp.get().setStatus(true);
+            if(userOtp.get().getOtp().equals(otp)){
+                userOtp.get().setStatus(true);
             otpRepository.save(userOtp.get());
 
         }else{

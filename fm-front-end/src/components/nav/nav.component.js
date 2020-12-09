@@ -6,8 +6,8 @@ export default class Nav extends Component {
     handlerLogOut = () => {
         localStorage.clear();
         this.props.setUser(null);
-
     };
+
 
     render() {
 

@@ -11,6 +11,9 @@ import { Forgot } from './components/login/forgot.component';
 import { Otp } from './components/login/otp.component';
 import { ChangePassword } from './components/login/changePassword.component';
 import Dashboard  from './components/dashboard/dashboard.component';
+import ExpenseRegister from './components/expenses/expense-register.component';
+import ExpenseMain from './components/expenses/expense-main.component';
+import ExpenseEdit from './components/expenses/expense-edit.component';
 
 
 export default class App extends Component {
@@ -19,7 +22,7 @@ export default class App extends Component {
 
   componentDidMount = () => {
 
-    axios.get('auth/user').then(
+    axios.get('http://localhost:8081/auth/user').then(
 
       res => {
         this.setUser(res.data);
@@ -47,18 +50,21 @@ export default class App extends Component {
     return (
 
       <BrowserRouter>
-        <div className="container">
-          <Route exact path="/" component={() => <Home user={this.state.user} />} />
+        <div className="container mb-5">
+          <Route exact path="/" component={Home} />
         </div>
         <div className="App">
           <Nav user={this.state.user} setUser={this.setUser} />
           <Switch>
             <Route exact path="/login" component={() => <Login setUser={this.setUser} />} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/expenses-register" component={ExpenseRegister} />
+            <Route exact path="/expenses-main" component={ExpenseMain} />
+            <Route exact path="/expenses-edit/:id" component={ExpenseEdit} />
+            <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user} />} />
             <Route exact path="/forgotPassword" component={Forgot} />
             <Route exact path="/otp" component={() => <Otp user={this.state.user} />} />
-            <Route exact path="/change-password" component={ChangePassword} />
+            <Route exact path="/change-password" component={() => <ChangePassword user={this.state.user} />} />
           </Switch>
         </div>
       </BrowserRouter>
