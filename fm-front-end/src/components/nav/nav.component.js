@@ -26,7 +26,7 @@ export default class Nav extends Component {
             buttons = (
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <Link to={'/login'} onClick={() => this.handlerLogOut()} className="nav-link">Logout</Link>
+                        <Link to={'/login'} onClick={() => this.handlerLogOut()} className="nav-link">Sair</Link>
                     </li>
                 </ul>
 
@@ -40,7 +40,7 @@ export default class Nav extends Component {
             homeDash = (
 
                 <li className="nav-item">
-                <Link className="nav-link" to={'/'}>Home</Link>
+                <Link className="nav-link" to={'/'}>Inicio</Link>
                 </li>
             )
 
@@ -51,7 +51,7 @@ export default class Nav extends Component {
                         <Link className="nav-link" to={'/login'}>Login</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to={'/register'}>Sign up</Link>
+                        <Link className="nav-link" to={'/register'}>Registrar-se</Link>
                     </li>
                 </ul>
             )

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default class ExpenseTable extends Component {
 
-    state = {expenses:[]};
+    state = { expenses: [] };
 
     componentDidMount = () => {
 
@@ -15,8 +15,6 @@ export default class ExpenseTable extends Component {
                 this.setState({
                     expenses: res.data
                 });
-                console.log(this.state.expenses.map(ex => ex.idExpense));
-
 
             }
         ).catch(
@@ -24,6 +22,34 @@ export default class ExpenseTable extends Component {
                 console.log(err);
             }
         );
+
+    }
+
+
+    refreshPage() {
+        window.location.reload(true);
+    }
+
+
+    handleDelete = async (idExpense) => {
+     
+        const resp = await axios.delete('http://localhost:8082/expenses/delete/'+ idExpense)
+        try {
+
+            this.setState({
+                register: true
+            });
+            console.log(resp.data);
+            this.refreshPage();
+
+
+        } catch (err) {
+            this.setState({
+                error: true,
+            });
+
+            console.log(err.response.data.message);
+        }
 
     }
 
@@ -47,32 +73,33 @@ export default class ExpenseTable extends Component {
                     </thead>
                     <tbody>
                         {this.state.expenses.map(ex => (
-                        <tr>
-                            <td>{ex.idExpense}</td>
-                            <td>{ex.expenseName}</td>
-                            <td>{ex.dueDate}</td>
-                            <td>{ex.value}</td>
-                            <td>{ex.installment ? "Sim" : "Não"}</td>
-                            <td>{ex.installmentTimes}</td>
-                            <td>
-                                <div className="row justify-content-center">
-                                    <div className="col-4">
-                                        <Link to="/expenses-edit/${expense.id}">  <button className="btn  btn-warning btn-block" size="sm">Editar</button></Link>
+                           
+                            <tr>
+                                <td>{ex.idExpense}</td>
+                                <td>{ex.expenseName}</td>
+                                <td>{ex.dueDate}</td>
+                                <td>{ex.value}</td>
+                                <td>{ex.installment ? "Sim" : "Não"}</td>
+                                <td>{ex.installmentTimes}</td>
+                                <td>
+                                    <div className="row justify-content-center">
+                                        <div className="col-4">
+                                            <Link to="/expenses-edit/${ex.idExpense}">  <button className="btn  btn-warning btn-block" size="sm">Editar</button></Link>
                                     </div>
                                     <div className="col-4">
-                                        <Link to="/expenses-main"> <button className="btn btn-danger btn-block" size="sm">Excluir</button> </Link>
-                                    </div>
-                                </div>
+                                               <button onClick={() => this.handleDelete(ex.idExpense)} className="btn btn-danger btn-block" size="sm">Excluir</button>
+                                            </div>
+                                        </div>
                             </td>
                         </tr>
-                    ))} 
+                                ))} 
                     </tbody>
                 </Table>
-
+        
             </div>
 
 
-        )
-    }
-}
-
+                    )
+                }
+            }
+            

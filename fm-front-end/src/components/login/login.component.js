@@ -31,15 +31,14 @@ export default class Login extends Component {
         ).catch(
             err => {
                 this.setState({
-                    loggedIn: false,
-                    error: err.response.status
+                    error: true
                 });
-                this.refreshPage();
                 console.log(err);
             }
         );
 
     };
+
 
     refreshPage() {
         window.location.reload(true);
@@ -67,7 +66,7 @@ export default class Login extends Component {
         if (this.state.loggedIn) {
             return <Redirect to={'/dashboard'} />; //dashboard
 
-        } else if (this.state.error === 400) {
+        } else {
 
 
             return (
@@ -77,7 +76,7 @@ export default class Login extends Component {
                         <div class="card-body">
                             <form onSubmit={this.handleSubmit}>
 
-                                <Alert variant="danger">
+                                <Alert hidden={this.state.error ? false : true} variant="danger">
                                     Senha e/ou email incorretos.
                                  </Alert>
 
@@ -100,47 +99,10 @@ export default class Login extends Component {
                                     <Link to={'/forgotPassword'}> Esqueceu a senha ?</Link>
                                 </p>
                             </form>
-
-
                         </div>
                     </div>
                 </div>
 
-
-
-            )
-
-        } else {
-
-            return (
-
-                <div className="auth-wrapper">
-                    <div className="card">
-                        <div class="card-body">
-                            <form onSubmit={this.handleSubmit}>
-
-                                <h3>Login</h3>
-
-                                <div className="form-group">
-                                    <label>Email:</label>
-                                    <input type="email" className="form-control" placeholder="Email"
-                                        onChange={e => this.email = e.target.value} />
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Senha:</label>
-                                    <input type="password" className="form-control" placeholder="Senha"
-                                        onChange={e => this.password = e.target.value} />
-                                </div>
-
-                                <button className="btn btn-primary btn-block">Entrar</button>
-                                <p className="forgot-password text-center">
-                                    <Link to={'/forgotPassword'}> Esqueceu a senha ?</Link>
-                                </p>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             )
 
         }

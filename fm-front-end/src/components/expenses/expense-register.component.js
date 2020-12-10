@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form'
 import Moment from 'moment';
 import './Expenses.css';
+import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 
 
@@ -54,13 +55,6 @@ export default class ExpenseRegister extends Component {
 
     }
 
-    onKeyPress(event) {
-        const keyCode = event.keyCode || event.which;
-        const keyValue = String.fromCharCode(keyCode);
-        if (/\+|-/.test(keyValue))
-            event.preventDefault();
-    }
-
     refreshPage() {
         window.location.reload(true);
     }
@@ -84,12 +78,14 @@ export default class ExpenseRegister extends Component {
                             <Link to={'/expenses-main'}><Button variant="link">Voltar</Button></Link>
                         </strong> </h2>
                     <div class="card-body mt-2">
-
+                    <Alert hidden={this.state.error ? false : true} variant="danger">
+                                    Senha e/ou email incorretos.
+                                 </Alert>
                         <form onSubmit={this.handleSubmit}>
                             <h3>Cadastrar nova despesa</h3>
                             <div className="form-group">
                                 <label>Nome da despesa:</label>
-                                <input type="text" className="form-control" placeholder="Nome da despesa"
+                                <input type="text" required="true" className="form-control" placeholder="Nome da despesa"
                                     onChange={e => this.expenseName = e.target.value} />
                             </div>
 
@@ -99,13 +95,13 @@ export default class ExpenseRegister extends Component {
                             </div>
                             <div className="form-group">
                                 <label>Data de vencimento:</label>
-                                <input type="date" className="form-control"
+                                <input type="date"  required="true" className="form-control"
                                     onChange={e => this.dueDate = e.target.value} />
                             </div>
                             <div className="form-group">
                                 <label>Valor:</label>
-                                <input type="number" placeholder="Valor" className="form-control"
-                                    onKeyPress={this.onKeyPress.bind(this)} onChange={e => this.value = e.target.value} />
+                                <input type="number" required="true" placeholder="Valor" className="form-control"
+                                   onChange={e => this.value = e.target.value} />
                             </div>
                             <div className="form-group" onChange={e => this.installment = e.target.value}>
                                 <label>Parcelado:</label>
@@ -116,7 +112,7 @@ export default class ExpenseRegister extends Component {
                             </div>
                             <div className="form-group" hidden={!this.state.isChecked}>
                                 <label>Quantas vezes ?</label>
-                                <input type="number" value={!this.installment ? 1 : ''} placeholder="Quantas de vezes" className="form-control"
+                                <input type="number" placeholder="Quantas de vezes" className="form-control"
                                     onChange={e => this.installmentTimes = e.target.value} />
                             </div>
                             <div className="row justify-content-center">
@@ -133,10 +129,6 @@ export default class ExpenseRegister extends Component {
                 </div>
             </div>
         )
-
-
-
-
 
 
     }

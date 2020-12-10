@@ -20,4 +20,6 @@ public interface ExpenseRegisterMapper {
 
     List<ExpenseResponse> mapToResponse(List<ExpenseEntity> entities);
 
+    ExpenseResponse entityToResponse(ExpenseEntity entities);
+
 }

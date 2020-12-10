@@ -2,8 +2,11 @@ package br.com.fm.expensesmanager.controller;
 
 
 import br.com.fm.expensesmanager.dto.ExpenseRequest;
+import br.com.fm.expensesmanager.dto.ExpenseResponse;
 import br.com.fm.expensesmanager.dto.MonthlySpendResponse;
 import br.com.fm.expensesmanager.service.ExpenseService;
+import javassist.NotFoundException;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +33,14 @@ public class ExpenseManagerController {
     public ResponseEntity<String> updateExpense(@PathVariable Long id, @RequestBody ExpenseRequest request){
         expenseService.updateExpense(id, request);
         return ResponseEntity.ok().body("Successfully updated.");
+
+    }
+
+    @GetMapping("/{id}")
+    @SneakyThrows
+    public ResponseEntity<?> getExpenseById(@PathVariable Long id) {
+        ExpenseResponse expenseResponse = expenseService.listById(id);
+        return ResponseEntity.ok().body(expenseResponse);
 
     }
 

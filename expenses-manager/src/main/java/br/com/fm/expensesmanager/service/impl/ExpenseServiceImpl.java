@@ -9,9 +9,11 @@ import br.com.fm.expensesmanager.mysql.entity.ExpenseEntity;
 import br.com.fm.expensesmanager.mysql.repository.ExpenseRepository;
 import br.com.fm.expensesmanager.service.ExpenseService;
 import br.com.fm.expensesmanager.utils.JwtUtils;
+import javassist.NotFoundException;
 import lombok.SneakyThrows;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -75,8 +77,17 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public void deleteExpense(Long id) {
         String userId = jwtUtils.getSession().getId();
-
         repository.deleteByIdExpenseAndUserId(id, userId);
+    }
+
+    @Override
+    @SneakyThrows
+    public ExpenseResponse listById(Long id) {
+        String userId = jwtUtils.getSession().getId();
+        ExpenseEntity expense = repository.findByIdExpenseAndUserId(id, userId).orElseThrow(() ->  new NotFoundException("Despesa nao encontrada."));
+        ExpenseResponse expenseResponse = mapper.entityToResponse(expense);
+
+        return expenseResponse;
     }
 
     @Override

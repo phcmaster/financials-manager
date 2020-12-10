@@ -53,6 +53,6 @@ public class InfosUpdateController {
 
 
     public ResponseEntity<String> emailFallBackMethod(String email){
-        return ResponseEntity.ok().body("Email service is not responding please try again later!");
+        return ResponseEntity.ok().body("The service is not responding please try again later!");
     }
 }

@@ -91,7 +91,13 @@ export default class Dashboard extends Component {
                             <Card.Header>Gasto mensal</Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                    <h4>R$ {this.state.monthlyValueSpend > 0 ? this.state.monthlyValueSpend : 0 }</h4>
+                                    <h4>
+
+                                    {new Intl.NumberFormat("pt-BR", {
+                                        style: "currency",
+                                        currency: "BRL"
+                                    }).format(this.state.monthlyValueSpend > 0 ? this.state.monthlyValueSpend : 0)}
+                                    </h4>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -101,7 +107,12 @@ export default class Dashboard extends Component {
                             <Card.Header>Gasto médio mensal</Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                    <h4>R$ {this.state.monthlyAverageSpend > 0 ? this.state.monthlyAverageSpend : 0 }</h4>
+                                    <h4>
+                                    {new Intl.NumberFormat("pt-BR", {
+                                        style: "currency",
+                                        currency: "BRL"
+                                    }).format(this.state.monthlyAverageSpend > 0 ? this.state.monthlyAverageSpend : 0)}
+                                    </h4>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -144,6 +155,7 @@ export default class Dashboard extends Component {
                         </Card.Body>
                     </Card>
                 </div>
+                <footer className="footer mt-3 text-center"><h5>FM - 2020</h5></footer>
             </div>
 
 
